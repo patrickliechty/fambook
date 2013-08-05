@@ -1,0 +1,8 @@
+{
+    "groups": {
+        "devs": ["stephen.lynn"]
+    },
+    "experiments": {
+        "featureOne": "devs"
+    }
+}
