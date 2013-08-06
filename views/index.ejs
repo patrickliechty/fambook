@@ -1,24 +1,30 @@
 <% page = { 'title' : 'Fambook', 'key': 'Fambook Home'} %>
-<% assets = { 'css' : [], 'js' : [] } %>
-<div id="main" class="container-fluid experiments">
-  <div class="no-layout">
-    <h1 class="font21 serif"><%- t('title')%></h1>
-    <div class="row-fluid">
-      <div class="col-lg-3">
-        <div class="panel">
-        <div class="panel-heading">FAVORITES</div>
-        <ul>
-          <li><span>News Feed</span></li>
-          <li><span>Relatives</span><span>6</span></li>
-          <li><span>Photos</span><span>202</span></li>
+<% assets = { 'css' : [], 'js' : ['angular-1.0.3.js', 'angular/fambookApp.js', 'angular/soiService.js'] } %>
+
+<% assets.css.push({'all': 'index.styl'}) %>
+<div id='main' class='container-fluid experiments' ng-app="fambook" ng-controller="feedController">
+  <div class='no-layout'>
+    <h1 class='font21 serif'><%- t('title')%></h1>
+    <div class='row-fluid show-grid'>
+      <div class='favorites app-padding span3'>
+        <h4>FAVORITES</h4>
+        <ul class='unstyled'>
+          <li><div><a href=''>News Feed</a></div><div>4</div></li>
+          <li><div><a href=''>Relatives</a></div><div>6</div></li>
+          <li><div><a href=''>Photos</a></div><div>202</div></li>
         </ul>
       </div>
+      <div class='feed span6'>
+        <ul class='unstyled app-padding'>
+            <li ng-repeat="alert in alerts">
+                <span>{{alert.alertType}}</span>
+            </li>
+        </ul>
       </div>
-      <div class="col-lg-6">
-
-      </div>
-      <div class="col-lg-3">
-
+      <div class='aux span3'>
+        <div class='chat app-padding'>
+            Come chat with me
+        </div>
       </div>
     </div>
   </div>

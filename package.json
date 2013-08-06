@@ -1,14 +1,13 @@
 {
-  "name": "SAMPLE_APP_NAME",
+  "name": "Fambook",
   "version": "0.1.0",
-  "private": true,
   "main": "./app.js",
   "dependencies": {
     "async": ">= 0.1.12",
     "shared-ui": "git+https://github.com/fs-webdev/shared-ui.git",
     "woodruff": "git+https://github.com/fs-webdev/woodruff.git",
     "frontier-build-tools": "git+https://github.com/fs-webdev/frontier-build-tools.git",
-    "startup": "~0.1.12"
+    "startup": "~0.1.13"
   },
   "devDependencies": {
     "should": "~1.2.2",
