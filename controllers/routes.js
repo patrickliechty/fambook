@@ -9,7 +9,12 @@ module.exports = function(app) {
   app.get('/:page', function(req, res){
     res.render(req.params.page, {});
   });
+
   app.get('/', function(req, res){
     res.render("index", {});
+  });
+
+  app.get(/^\/partials\/(.*)/, function(req, res) {
+    res.partial('partials/' + req.params[0]);
   });
 }

@@ -1,5 +1,4 @@
-var myModule = angular.module('fambook', []);
-myModule.factory('soiService', function() {
+fambookApp.factory('soiService', function() {
   var service = {
 
     getAlerts: function(cisUserId) {
@@ -157,7 +156,22 @@ myModule.factory('soiService', function() {
         }]
       }
 
-      return response;
+      for(var i=0; i<response.alerts.length; i++) {
+        var alert = response.alerts[i];
+        alert.context = JSON.parse(response.alerts[i].context);
+        if(alert.applicationID === 'engage.artifactmanager') {
+          alert.title = 'Photos Alert';
+          if(alert.alertType === 'artifact.added') {
+            alert.title += " - Artifact Added";
+          }
+          alert.image = 'photos.png';
+          //alert.imageHeight = '89';
+          //alert.imageWidth = '95';
+        }
+        response.alerts[i].context = alert;
+      }
+
+      return response.alerts;
 //      $http.get('https://familysearch.org/alertservice/alert/user/cis.user.MMMM-V7PM').
 //          success(function(data, status, headers, config) {
 //            return data;

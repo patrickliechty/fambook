@@ -1,15 +1,10 @@
 'use strict';
 
-var app = angular.module('fambook', ['soiService']);
+var fambookApp = angular.module('fambook', []);
 
-app.controller('feedController', ['$scope', function ($scope) {
-  //alert("Feed Controller");
-      //$scope.getSoiAlerts = function(cisUserId) {
-        //soiService.getAlerts(cisUserId);
-      //}
-    }
-]);
-
+fambookApp.controller('feedController', function ($scope, soiService) {
+  $scope.alerts = soiService.getAlerts();
+});
 
 
 

@@ -1,31 +1,34 @@
 <% page = { 'title' : 'Fambook', 'key': 'Fambook Home'} %>
-<% assets = { 'css' : [], 'js' : ['angular-1.0.3.js', 'angular/fambookApp.js', 'angular/soiService.js'] } %>
+<% assets = { 'css' : [], 'js' : ['angular-1.0.3.js', 'angular/fambookApp.js', 'angular/services/soiService.js',
+    'angular/directives/notification.js'] } %>
 
+<script src=''></script>
 <% assets.css.push({'all': 'index.styl'}) %>
 <div id='main' class='container-fluid experiments' ng-app="fambook" ng-controller="feedController">
-  <div class='no-layout'>
-    <h1 class='font21 serif'><%- t('title')%></h1>
-    <div class='row-fluid show-grid'>
-      <div class='favorites app-padding span3'>
-        <h4>FAVORITES</h4>
-        <ul class='unstyled'>
-          <li><div><a href=''>News Feed</a></div><div>4</div></li>
-          <li><div><a href=''>Relatives</a></div><div>6</div></li>
-          <li><div><a href=''>Photos</a></div><div>202</div></li>
-        </ul>
-      </div>
-      <div class='feed span6'>
-        <ul class='unstyled app-padding'>
-            <li ng-repeat="alert in alerts">
-                <span>{{alert.alertType}}</span>
-            </li>
-        </ul>
-      </div>
-      <div class='aux span3'>
-        <div class='chat app-padding'>
-            Come chat with me
+    {{name}}
+    <div class='no-layout'>
+        <h1 class='font21 serif'>Fambook</h1>
+        <div class='row-fluid show-grid'>
+            <div class='favorites app-padding span3'>
+                <h4>FAVORITES</h4>
+                <ul class='unstyled'>
+                    <li><div><a href=''>News Feed</a></div><div>4</div></li>
+                    <li><div><a href=''>Relatives</a></div><div>6</div></li>
+                    <li><div><a href=''>Photos</a></div><div>202</div></li>
+                </ul>
+            </div>
+            <div class='feed span6'>
+                <ul class='unstyled app-padding'>
+                    <li ng-repeat="alert in alerts">
+                        <notification />
+                    </li>
+                </ul>
+            </div>
+            <div class='aux span3'>
+                <div class='chat app-padding'>
+                    Come chat with me
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
