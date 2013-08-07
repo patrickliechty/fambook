@@ -1,10 +1,33 @@
-fambookApp.factory('soiService', function() {
+fambookApp.factory('soiService', function($http) {
   var artifactManagerURL = 'https://familysearch.org/artifactmanager/artifacts/';
   var photosImageURL = 'https://familysearch.org/photos/images/';
 
+  function processAlerts(alerts) {
+    for(var i=0; i<alerts.length; i++) {
+      var alert = alerts[i];
+      alert.context = JSON.parse(alerts[i].context);
+      if(alert.applicationID === 'engage.artifactmanager') {
+        alert.title = 'Photos Alert';
+        if(alert.alertType === 'artifact.added') {
+          alert.title += " - Artifact Added";
+        }
+        alert.image = 'photos.png';
+        if(alert.context.artifactId) {
+          alert.url = artifactManagerURL + alert.context.artifactId;
+          alert.href = photosImageURL + alert.context.artifactId;
+        }
+        //alert.imageHeight = '89';
+        //alert.imageWidth = '95';
+      }
+      console.log("alert: ", alert)
+      alerts[i].context = alert.context;
+    }
+    return alerts;
+  }
+
   var service = {
 
-    getAlerts: function(cisUserId) {
+    getAlertsStatic: function(cisUserId) {
       var response = {
         "links": [{
           "href": "https://familysearch.org/alertservice/alert/user/cis.user.MMMM-V7PM",
@@ -159,34 +182,20 @@ fambookApp.factory('soiService', function() {
         }]
       }
 
-      for(var i=0; i<response.alerts.length; i++) {
-        var alert = response.alerts[i];
-        alert.context = JSON.parse(response.alerts[i].context);
-        if(alert.applicationID === 'engage.artifactmanager') {
-          alert.title = 'Photos Alert';
-          if(alert.alertType === 'artifact.added') {
-            alert.title += " - Artifact Added";
-          }
-          alert.image = 'photos.png';
-          if(alert.context.artifactId) {
-            alert.url = artifactManagerURL + alert.context.artifactId;
-            alert.href = photosImageURL + alert.context.artifactId;
-          }
-          //alert.imageHeight = '89';
-          //alert.imageWidth = '95';
-        }
-        response.alerts[i].context = alert.context;
-      }
+      return processAlerts(response.alerts);
+    },
 
-      return response.alerts;
-//      $http.get('https://familysearch.org/alertservice/alert/user/cis.user.MMMM-V7PM').
-//          success(function(data, status, headers, config) {
-//            return data;
-//          })
-//          .error(function(data, status, headers, config) {
-//            alert("Error getting soiService data status: " + status);
-//          });
+    getAlerts: function(cisUserId, successcb) {
+      $http.get('https://familysearch.org/alertservice/alert/user/cis.user.MMMM-V7PM', {headers:{'Authorization': 'Bearer USYS595C8717366D82D13383BF1873E58970_idses-prod02.a.fsglobal.net'}}).
+          success(function(data, status, headers, config) {
+            //console.log("alerts json: " + JSON.stringify(data.alerts[0]))
+            successcb(processAlerts(data.alerts));
+          })
+          .error(function(data, status, headers, config) {
+            console.log("Error getting soiService", data, status, headers, config);
+          });
     }
   }
+
   return service;
 });
