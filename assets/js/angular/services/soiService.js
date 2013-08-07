@@ -1,4 +1,6 @@
 fambookApp.factory('soiService', function() {
+  var artifactManagerURL = 'https://familysearch.org/artifactmanager/artifacts/';
+
   var service = {
 
     getAlerts: function(cisUserId) {
@@ -165,10 +167,13 @@ fambookApp.factory('soiService', function() {
             alert.title += " - Artifact Added";
           }
           alert.image = 'photos.png';
+          if(alert.context.artifactId) {
+            alert.url = artifactManagerURL + alert.context.artifactId;
+          }
           //alert.imageHeight = '89';
           //alert.imageWidth = '95';
         }
-        response.alerts[i].context = alert;
+        response.alerts[i].context = alert.context;
       }
 
       return response.alerts;
