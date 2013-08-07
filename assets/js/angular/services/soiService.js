@@ -1,5 +1,6 @@
 fambookApp.factory('soiService', function() {
   var artifactManagerURL = 'https://familysearch.org/artifactmanager/artifacts/';
+  var photosImageURL = 'https://familysearch.org/photos/images/';
 
   var service = {
 
@@ -169,6 +170,7 @@ fambookApp.factory('soiService', function() {
           alert.image = 'photos.png';
           if(alert.context.artifactId) {
             alert.url = artifactManagerURL + alert.context.artifactId;
+            alert.href = photosImageURL + alert.context.artifactId;
           }
           //alert.imageHeight = '89';
           //alert.imageWidth = '95';

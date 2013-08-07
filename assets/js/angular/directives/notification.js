@@ -8,8 +8,8 @@ fambookApp.directive('notification', function($http) {
     link: function(scope, element, attrs, controller) {
       $http.get(scope.alert.url)
           .success(function(data, status, headers, config) {
-            console.log("success data: ", data)
-            element.find('.artifactImage').attr('src', data.thumbIconUrl);
+            console.log("success data: ", data);
+            element.find('.artifactImage').attr('src', data.thumbUrl);
           })
           .error(function(data, status, headers, config) {
             console.log("notification error retrieving image url", data, status, headers, config);
