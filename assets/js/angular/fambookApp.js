@@ -3,9 +3,7 @@
 var fambookApp = angular.module('fambook', []);
 
 fambookApp.controller('feedController', function ($scope, soiService) {
-  soiService.getAlerts('', function(data) {
-    $scope.alerts = data;
-  });
+  $scope.alerts = soiService.getAlerts('');
 });
 
 

@@ -1,4 +1,4 @@
-fambookApp.factory('soiService', function($http) {
+fambookApp.factory('soiService', function($http, $q) {
   var artifactManagerURL = 'https://familysearch.org/artifactmanager/artifacts/';
   var photosImageURL = 'https://familysearch.org/photos/images/';
 
@@ -185,15 +185,22 @@ fambookApp.factory('soiService', function($http) {
       return processAlerts(response.alerts);
     },
 
-    getAlerts: function(cisUserId, successcb) {
-      $http.get('https://familysearch.org/alertservice/alert/user/cis.user.MMMM-V7PM', {headers:{'Authorization': 'Bearer USYS595C8717366D82D13383BF1873E58970_idses-prod02.a.fsglobal.net'}}).
+    getAlerts: function(cisUserId) {
+      var deferred = $q.defer();
+
+      $http.get('https://familysearch.org/alertservice/alert/user/cis.user.MMMM-V7PM',
+          {headers:{'Authorization': 'Bearer USYS595C8717366D82D13383BF1873E58970_idses-prod02.a.fsglobal.net'}}).
           success(function(data, status, headers, config) {
             //console.log("alerts json: " + JSON.stringify(data.alerts[0]))
-            successcb(processAlerts(data.alerts));
+            deferred.resolve(processAlerts(data.alerts));
+            //successcb(processAlerts(data.alerts));
           })
           .error(function(data, status, headers, config) {
+            deferred.reject(status);
             console.log("Error getting soiService", data, status, headers, config);
           });
+
+      return deferred.promise;
     }
   }
 
