@@ -1,12 +1,12 @@
 <div>
-    <div class='image span2'><img width='{{alert.imageWidth}}' height='{{alert.imageHeight}}' src='img/{{alert.image}}'></div>
+    <div class='image span2'><img src='img/{{alert.image}}'></div>
     <div class='span5'>
         {{ alert.title }}</a>
     </div>
     <div>
-        <a href='{{ alert.href }}'>{{ alert.context.title }}</a>
+        <a target='_blank' href='{{ alert.href }}'>{{ alert.data }}</a>
     </div>
     <div>
-        <a href='{{ alert.href }}'><img class='artifactImage' src=''></a>
+        <a target='_blank' href='{{ alert.href }}'><img class='artifactImage' src=''></a>
     </div>
 </div>

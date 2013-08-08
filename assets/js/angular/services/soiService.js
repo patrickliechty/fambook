@@ -15,6 +15,7 @@ fambookApp.factory('soiService', function($http, $q) {
         if(alert.context.artifactId) {
           alert.url = artifactManagerURL + alert.context.artifactId;
           alert.href = photosImageURL + alert.context.artifactId;
+          alert.data = alert.context.title;
         }
         //alert.imageHeight = '89';
         //alert.imageWidth = '95';
@@ -22,6 +23,7 @@ fambookApp.factory('soiService', function($http, $q) {
       console.log("alert: ", alert)
       alerts[i].context = alert.context;
     }
+    console.log("Alerts: ", alerts)
     return alerts;
   }
 

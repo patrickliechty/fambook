@@ -2,8 +2,13 @@
 
 var fambookApp = angular.module('fambook', []);
 
-fambookApp.controller('feedController', function ($scope, soiService) {
-  $scope.alerts = soiService.getAlerts('');
+fambookApp.controller('feedController', function ($scope, soiService, watchNotifyService) {
+  $scope.alerts = [];
+  //$scope.alerts = soiService.getAlertsStatic('');
+
+  //$scope.alerts = watchNotifyService.getNotificationsStatic();
+  $scope.alerts = watchNotifyService.getWatches();
+  console.log("scope.alerts: ", $scope.alerts);
 });
 
 
