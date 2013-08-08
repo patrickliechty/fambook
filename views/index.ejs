@@ -1,6 +1,6 @@
 <% page = { 'title' : 'Fambook', 'key': 'Fambook Home'} %>
 <% assets = { 'css' : [], 'js' : ['angular-1.0.3.js', 'angular/fambookApp.js', 'angular/services/soiService.js', 'angular/services/watchNotifyService.js',
-    'angular/directives/notification.js'] } %>
+    'angular/directives/notification.js', 'util-fambook.js'] } %>
 
 <script src=''></script>
 <% assets.css.push({'all': 'index.styl'}) %>
@@ -18,6 +18,7 @@
                 </ul>
             </div>
             <div class='feed span6'>
+                <div class='spinner'></div>
                 <ul class='unstyled app-padding'>
                     <li class='app-padding' ng-repeat="alert in alerts">
                         <notification />

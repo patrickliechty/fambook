@@ -2,13 +2,37 @@
 
 var fambookApp = angular.module('fambook', []);
 
-fambookApp.controller('feedController', function ($scope, soiService, watchNotifyService) {
+fambookApp.controller('feedController', function ($scope, $q, soiService, watchNotifyService) {
   $scope.alerts = [];
-  //$scope.alerts = soiService.getAlertsStatic('');
+  var promiseArray = [];
+  var alertsArray = [];
 
-  //$scope.alerts = watchNotifyService.getNotificationsStatic();
-  $scope.alerts = watchNotifyService.getWatches();
-  console.log("scope.alerts: ", $scope.alerts);
+  promiseArray.push(soiService.getAlerts(''));
+  promiseArray.push(watchNotifyService.getWatches(''));
+
+  var deferred = $q.defer();
+
+  FB.Promise.all($q, promiseArray).then(function(results) {
+        console.log("controller final results: ", results);
+        alertsArray = alertsArray.concat(results[0], results[1]);
+        //results.sort();
+        console.log("controller final results1: ", results);
+        deferred.resolve(alertsArray);
+      },
+      function(event) {
+        console.log("controller final results error: ", event);
+        deferred.reject(event.status);
+      });
+
+  //$scope.alerts = watchNotifyService.getWatches();
+  deferred.promise.then(function(results){
+    console.log("Hide spinner: ", results);
+    $('.spinner').hide();
+    $scope.alerts = results;
+  },
+  function(event) {
+    console.log('Scope.alerts failure', event)
+  });
 });
 
 

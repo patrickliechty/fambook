@@ -1,19 +1,21 @@
 fambookApp.factory('watchNotifyService', function($http, $q) {
-  var watchAtomURL = "http://familysearch.org/watch/atom/";
+  var watchAtomURL = "https://familysearch.org/watch/atom/";
 
   function processNotifications(watchers) {
     var notifications = watchers;
     for(var i=0; i<notifications.length; i++) {
-      var notification = notifications[i];
-      for(var j=0; j<notification.links; j++) {
-        if(notification.links[i].rel === 'feedLink') {
-          notification.href = notification.links[i].href;
+      if(notifications[i]) {
+        var notification = notifications[i];
+        for(var j=0; j<notification.links.length; j++) {
+          if(notification.links[j].rel === 'feedLink') {
+            notification.href = notification.links[j].href;
+          }
         }
+        notification.data = notification.title;
+        notification.title = 'Family Tree Change';
+        notification.image = 'family-tree.png';
+        //console.log("notification: ", notification)
       }
-      notification.data = notification.title;
-      notification.title = 'Watch/Notify Alert';
-      notification.image = 'family-tree.png';
-      console.log("notification: ", notification)
     }
     console.log("notifications: ", notifications)
     return notifications;
@@ -23,6 +25,7 @@ fambookApp.factory('watchNotifyService', function($http, $q) {
 
     getWatches: function(cisUserId) {
       var deferred = $q.defer();
+      var successResults = [];
 
       $http.get('https://familysearch.org/watch/watches?watcher=cis.user.MMMM-V7PM').
           success(function(data, status, headers, config) {
@@ -38,23 +41,31 @@ fambookApp.factory('watchNotifyService', function($http, $q) {
 //                    sub.reject(status);
 //                  });
 //            });
-            var sub1 = deferred.promise;
+            var promiseArray = [];
             for(var i=0; i<data.watch.length; i++) {
-              console.log("notification loop: ", data.watch[i]);
-              sub1 = sub1.then(function(result) {
-                console.log("notification url: " + result.resourceId)
-                $http.get(watchAtomURL + data.watch[i].resourceId).
-                    success(function(data, status, headers, config) {
-                      console.log("atom feed: ", data);
-                      sub1.resolve(processNotifications(data));
-                    })
-                    .error(function(data, status, headers, config) {
-                      console.log("ERROR getting atom feed");
-                      sub1.reject(status);
-                    });
-              });
+              //console.log("notification loop: ", data.watch[i]);
+              var atomURL = watchAtomURL + data.watch[i].resourceId;
+              //console.log("notification url: " + atomURL)
+              promiseArray.push($http.get(atomURL).
+                  success(function(data, status, headers, config) {
+                    console.log("atom feed: ", data);
+                    successResults = successResults.concat(data);
+                  })
+                  .error(function(data, status, headers, config) {
+                    console.log("ERROR getting atom feed url: " + config.url);
+                  }));
             }
-            deferred.resolve(data.watch[0]);
+            FB.Promise.all($q, promiseArray).then(function(results) {
+              console.log("final results: ", successResults);
+              deferred.resolve(processNotifications(successResults));
+            },
+            function(event) {
+              console.log("final results error: ", successResults);
+              if(results.length === 0) {
+                deferred.reject(404);
+              }
+              deferred.resolve(processNotifications(successResults));
+            });
             //successcb(processAlerts(data.alerts));
           })
           .error(function(data, status, headers, config) {
@@ -152,6 +163,7 @@ fambookApp.factory('watchNotifyService', function($http, $q) {
     },
 
     getNotificationsStatic: function (cisUserId) {
+      var deferred = $q.defer();
       var notifications = {notifications: [
         {
           "title": "Hannah White (p.KP9T-L2V)",
@@ -386,8 +398,10 @@ fambookApp.factory('watchNotifyService', function($http, $q) {
         "lang": null
       }]};
 
-      return processNotifications(notifications.notifications);
-
+      setTimeout(function(){
+        deferred.resolve(processNotifications(notifications.notifications));
+      }), 200);
+      return deferred.promise;
     },
 
     getNotifications: function(cisUserId) {
