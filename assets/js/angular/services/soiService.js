@@ -6,10 +6,11 @@ fambookApp.factory('soiService', function($http, $q) {
     for(var i=0; i<alerts.length; i++) {
       var alert = alerts[i];
       alert.context = JSON.parse(alerts[i].context);
+      console.log("applicationID: " + alert.applicationID);
       if(alert.applicationID === 'engage.artifactmanager') {
-        alert.title = 'Photos Alert';
+        alert.titleText = 'Photos Alert';
         if(alert.alertType === 'artifact.added') {
-          alert.title += " - Artifact Added";
+          alert.titleText += " - Artifact Added";
         }
         alert.image = 'photos.png';
         if(alert.context.artifactId) {
@@ -20,6 +21,16 @@ fambookApp.factory('soiService', function($http, $q) {
         //alert.imageHeight = '89';
         //alert.imageWidth = '95';
       }
+      else if(alert.applicationID === 'engage.start.soi') {
+        alert.title = "engage.start.soi";
+        if(alert.alertType === 'namesReady-possibleDuplicates') {
+          alert.titleText = "Temple Alert - Names Ready Possible Duplicates";
+          alert.data = alert.context.data.personId;
+          alert.image = 'temple-extra-large.png';
+        }
+      }
+      alert.changeTime = new Date(alert.updateTime);
+
       //console.log("alert: ", alert)
       alerts[i].context = alert.context;
     }

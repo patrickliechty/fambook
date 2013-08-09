@@ -21,15 +21,34 @@
   }
 }
 
+.feed > ul > li {
+  //border: 1px solid red;
+  min-height: 100px;
+}
+
 .feed {
   border: 1px solid black;
-  li {
-    .image {
-      //width: 140px;
-      //height: 140px;
+  .notification {
+    overflow: auto;
+    .content {
+      margin-top: 20px;
     }
-    //border: 1px solid red;
-    min-height: 100px;
+
+    .details {
+      li {
+        div:first-child {
+          text-align: right;
+          color: #8f8a85;
+        }
+        div:last-child {
+          color: #4d4d4a;
+        }
+        div {
+          min-height: 20px;
+        }
+        overflow: auto;
+      }
+    }
   }
 }
 

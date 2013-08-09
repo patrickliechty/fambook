@@ -8,11 +8,14 @@ $.extend(typeof FB === "object" ? FB : FB = {}, {
 
       if (counter) {
         promises.forEach(function(promise, index) {
+          //console.log("Add promise: ", promise);
           promise.then(function(value) {
+            //console.log("Promise success: ", value);
             if (index in results) return;
             results[index] = value;
             if (!(--counter)) deferred.resolve(results);
           }, function(reason) {
+            //console.log("Promise fail: ", reason);
             if (index in results) return;
             results[index] = undefined;
             if (!(--counter)) deferred.resolve(results);
@@ -23,6 +26,21 @@ $.extend(typeof FB === "object" ? FB : FB = {}, {
       }
 
       return deferred.promise;
+    }
+  },
+
+  Util : {
+    getTreeText: function(id) {
+      var map = {
+        "DELETE_PERSON_SOURCE_REFERENCE": "Source Detached",
+        "ADD_PERSON_SOURCE_REFERENCE": "Source Attached",
+        "ADD_LINEAGE": "Added relatives",
+        "EDIT_PREFERRED_NAME": "Name Changed",
+        "ADD_ALTERNATE_NAME": "Alternate Name Changed",
+        "DELETE_ALTERNATE_NAME": "Delete Alternate Name"
+      }
+
+      return map[id];
     }
   }
 });
