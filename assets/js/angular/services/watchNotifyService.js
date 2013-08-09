@@ -1,6 +1,7 @@
 fambookApp.factory('watchNotifyService', function($http, $q) {
   var watchAtomURL = "https://familysearch.org/watch/atom/resource/";
   var treeDataURL = "https://familysearch.org/tree-data/changes/person/";
+  var treePersonURL = "https://familysearch.org/tree/#view=ancestor&person=";
 
   function processWatchNotifications(watchers) {
     var notifications = watchers;
@@ -32,9 +33,18 @@ fambookApp.factory('watchNotifyService', function($http, $q) {
         change.titleText = "Family Tree Alert";
         change.titleText += ' - ' + FB.Util.getTreeText(change.type);
         change.fields = [];
+        change.fields.push({'label': 'Title:', 'value': change.conclusion.details.title});
         change.fields.push({'label': 'Date:', 'value': change.timeStampDisplay});
         change.fields.push({'label': 'by:', 'value': change.contributor.name});
-        change.fields.push({'label': 'Details:', 'value': change.conclusion.details.title});
+        change.fields.push({'label': 'Name Type:', 'value': change.conclusion.details.nameType});
+        change.fields.push({'label': 'Name:', 'value': change.conclusion.details.fullText});
+
+        if(change.conclusion.details.relationshipId) {
+          change.href = treePersonURL + change.conclusion.details.relationshipId;
+        }
+        else {
+          change.href = '#';
+        }
         change.image = 'family-tree.png';
         change.changeTime = new Date(change.timeStamp);
         console.log("change: ", change)

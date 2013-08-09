@@ -13,10 +13,11 @@ fambookApp.factory('soiService', function($http, $q) {
           alert.titleText += " - Artifact Added";
         }
         alert.image = 'photos.png';
+        alert.fields = [];
         if(alert.context.artifactId) {
           alert.url = artifactManagerURL + alert.context.artifactId;
           alert.href = photosImageURL + alert.context.artifactId;
-          alert.data = alert.context.title;
+          alert.fields.push({'label': 'Title:', 'value': alert.context.title});
         }
         //alert.imageHeight = '89';
         //alert.imageWidth = '95';
