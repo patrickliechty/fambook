@@ -2,11 +2,11 @@
 
 var fambookApp = angular.module('fambook', []);
 
-fambookApp.controller('feedController', function ($scope, $q, soiService, watchNotifyService) {
+fambookApp.controller('feedController', function ($scope, $q, soiService, watchNotifyService, $location) {
   $scope.alerts = [];
   var promiseArray = [];
   var alertsArray = [];
-  var staticData = true;
+  var staticData = /static/.test($location.absUrl());
 
   if(staticData) {
     var alerts = soiService.getAlertsStatic('');
@@ -15,14 +15,14 @@ fambookApp.controller('feedController', function ($scope, $q, soiService, watchN
     alertsArray = alertsArray.sort(function(a, b) {
       return a.changeTime > b.changeTime;
     });
-    console.log("alert array: ", alertsArray);
+    console.log("alert array: ",  alertsArray);
     $scope.alerts = alertsArray;
     $('.spinner').hide();
   }
   else {
     var deferred = $q.defer();
 
-    //promiseArray.push(soiService.getAlerts(''));
+    promiseArray.push(soiService.getAlerts(''));
     promiseArray.push(watchNotifyService.getWatches(''));
 
     FB.Promise.all($q, promiseArray).then(function(results) {

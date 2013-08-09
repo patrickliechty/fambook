@@ -92,14 +92,14 @@ fambookApp.factory('watchNotifyService', function($http, $q) {
             }
             FB.Promise.all($q, promiseArray).then(function(results) {
               console.log("final results: ", successResults);
-              deferred.resolve(processNotifications(successResults));
+              deferred.resolve(processTreeChanges(successResults));
             },
             function(event) {
               console.log("final results error: ", successResults);
               if(results.length === 0) {
                 deferred.reject(404);
               }
-              deferred.resolve(processNotifications(successResults));
+              deferred.resolve(processTreeChanges(successResults));
             });
             //successcb(processAlerts(data.alerts));
           })
