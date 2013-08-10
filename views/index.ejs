@@ -1,6 +1,7 @@
 <% page = { 'title' : 'Fambook', 'key': 'Fambook Home'} %>
 <% assets = { 'css' : [], 'js' : ['angular-1.0.3.js', 'angular/fambookApp.js', 'angular/services/soiService.js', 'angular/services/watchNotifyService.js',
-'angular/directives/notification.js', 'util-fambook.js', 'angular/filters/html-filter.js', 'bootstrap.js'] } %>
+'angular/directives/notification.js', 'util-fambook.js', 'angular/filters/html-filter.js', 'bootstrap.js',
+'angular/directives/chat.js', 'socket.io.js'] } %>
 
 <% assets.css.push({'all': 'index.styl'}) %>
 <div id='main' class='container-fluid experiments' ng-app="fambook" ng-controller="feedController">
@@ -35,7 +36,7 @@
       </div>
       <div class='aux span3'>
         <div class='chat app-padding'>
-          Come chat with me
+          <chat />
         </div>
       </div>
     </div>

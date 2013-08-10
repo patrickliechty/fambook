@@ -31,3 +31,17 @@ app.configure('development', function() {
     handle: proxy("https://familysearch.org/scopeservice")
   });
 });
+
+var io = require('socket.io').listen(app);
+
+io.sockets.on('connection', function (socket) {
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
+
+  socket.on('disconnect', function () {
+    console.log("user disconnected");
+  });
+});
+
