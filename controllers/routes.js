@@ -6,12 +6,16 @@ module.exports = function(app) {
   });
   */
   
-  app.get('/:page', function(req, res){
-    res.render(req.params.page, {});
-  });
+//  app.get('/:page', function(req, res){
+//    res.render(req.params.page, {});
+//  });
 
   app.get('/', function(req, res){
     res.render("index", {'user': req.user});
+  });
+
+  app.get('/workerdata', function(req, res){
+    res.send("{'test': 'worker.data'}");
   });
 
   app.get(/^\/partials\/(.*)/, function(req, res) {

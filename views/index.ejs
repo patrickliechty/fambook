@@ -4,9 +4,48 @@
 'angular/directives/chat.js', 'socket.io.js'] } %>
 
 <% assets.css.push({'all': 'index.styl'}) %>
+
+    <script data-control='Main'>
+
+
+
+      var worker = new Worker('/js/worker.js');
+      worker.onmessage = function(e) {
+        console.log("Received from worker: ", e);
+      }
+      worker.postMessage({cmd: 'start'}); // Start the worker.
+      worker.addEventListener('error', function(e) {
+        console.log("Worker error: ", e);
+      }, false);
+
+
+
+
+
+
+      $('.click-alert').onclick = (function(e) {
+        // init the count to 0
+        var count = 0;
+        alert("click count: " + count)
+        return function(e) {
+
+          //count
+          count++;
+
+          if (count === 3) {
+            // do something every third time
+            alert("Third time's the charm!");
+            //reset counter
+            count = 0;
+          }
+        };
+      })();
+
+    </script>
+<div></div>
 <div id='main' class='container-fluid experiments' ng-app="fambook" ng-controller="feedController">
   <div class='no-layout'>
-    <h1 class='font21 serif' data-control='Main'>Fambook</h1>
+    <h1 class='font21 serif'>Fambook</h1>
 
     <div class='row-fluid show-grid'>
       <div class='favorites app-padding span3'>
@@ -38,6 +77,9 @@
         <div class='chat app-padding'>
           <chat />
         </div>
+      </div>
+      <div class='ajaxTest'>
+        <button class='click-alert btn btn-water'>Click alert</button>
       </div>
     </div>
   </div>
