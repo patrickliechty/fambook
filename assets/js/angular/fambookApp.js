@@ -22,8 +22,8 @@ fambookApp.controller('feedController', function ($scope, $q, soiService, watchN
   else {
     var deferred = $q.defer();
 
-    promiseArray.push(soiService.getAlerts(''));
-    promiseArray.push(watchNotifyService.getWatches(''));
+    promiseArray.push(soiService.getAlerts(user.profile.id));
+    promiseArray.push(watchNotifyService.getWatches(user.profile.id));
 
     FB.Promise.all($q, promiseArray).then(function(results) {
           console.log("controller final results: ", results);

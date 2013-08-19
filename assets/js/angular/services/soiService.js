@@ -202,8 +202,8 @@ fambookApp.factory('soiService', function($http, $q) {
     getAlerts: function(cisUserId) {
       var deferred = $q.defer();
 
-      $http.get('https://familysearch.org/alertservice/alert/user/cis.user.MMMM-V7PM',
-          {headers:{'Authorization': 'Bearer USYSEE762CF551A978F4A9F7A764BDF5AAD4_idses-prod03.a.fsglobal.net'}}).
+      $http.get('https://familysearch.org/alertservice/alert/user/' + cisUserId,
+          {headers:{'Authorization': 'Bearer ' + user.sessionId}}).
           success(function(data, status, headers, config) {
             //console.log("alerts json: " + JSON.stringify(data.alerts[0]))
             deferred.resolve(processAlerts(data.alerts));

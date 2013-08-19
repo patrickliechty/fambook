@@ -1,6 +1,6 @@
 fambookApp.factory('watchNotifyService', function($http, $q) {
   var watchAtomURL = "https://familysearch.org/watch/atom/resource/";
-  var treeDataURL = "https://familysearch.org/tree-data/changes/person/";
+  var treeDataURL = "/tree-data/changes/person/";
   var treePersonURL = "https://familysearch.org/tree/#view=ancestor&person=";
 
   function processWatchNotifications(watchers) {
@@ -26,32 +26,40 @@ fambookApp.factory('watchNotifyService', function($http, $q) {
   }
 
   function processTreeChanges(changes) {
+    var changeArray = [];
     for(var i=0; i<changes.length; i++) {
-      if(changes[i]) {
-        var change = changes[i];
-        console.log("notification: ", change)
-        change.titleText = "Family Tree Alert";
-        change.titleText += ' - ' + FB.Util.getTreeText(change.type);
-        change.fields = [];
-        change.fields.push({'label': 'Title:', 'value': change.conclusion.details.title});
-        change.fields.push({'label': 'Date:', 'value': change.timeStampDisplay});
-        change.fields.push({'label': 'by:', 'value': change.contributor.name});
-        change.fields.push({'label': 'Name Type:', 'value': change.conclusion.details.nameType});
-        change.fields.push({'label': 'Name:', 'value': change.conclusion.details.fullText});
+      if(changes[i].data.changes) {
+        for(var j=0; j<changes[i].data.changes.length; j++) {
+          if(changes[i].data.changes[j]) {
+            var change = changes[i].data.changes[j];
+            console.log("notification: ", change)
+            change.titleText = "Family Tree Alert";
+            change.titleText += ' - ' + FB.Util.getTreeText(change.type);
+            change.fields = [];
+            change.href = '#';
+            if(change.conclusion) {
+              change.fields.push({'label': 'Title:', 'value': change.conclusion.details.title});
+              change.fields.push({'label': 'Name Type:', 'value': change.conclusion.details.nameType});
+              change.fields.push({'label': 'Name:', 'value': change.conclusion.details.fullText});
+              if(change.conclusion.details.relationshipId) {
+                change.href = treePersonURL + change.conclusion.details.relationshipId;
+              }
+            }
+            change.fields.push({'label': 'Date:', 'value': change.timeStampDisplay});
+            if(change.contributor) {
+              change.fields.push({'label': 'by:', 'value': change.contributor.name});
+            }
 
-        if(change.conclusion.details.relationshipId) {
-          change.href = treePersonURL + change.conclusion.details.relationshipId;
+            change.image = 'family-tree.png';
+            change.changeTime = new Date(change.timeStamp);
+            console.log("change: ", change)
+            changeArray.push(change);
+          }
         }
-        else {
-          change.href = '#';
-        }
-        change.image = 'family-tree.png';
-        change.changeTime = new Date(change.timeStamp);
-        console.log("change: ", change)
       }
+      console.log("notifications: ", changes)
     }
-    console.log("notifications: ", changes)
-    return changes;
+    return changeArray;
   }
 
   var service = {
@@ -60,7 +68,7 @@ fambookApp.factory('watchNotifyService', function($http, $q) {
       var deferred = $q.defer();
       var successResults = [];
 
-      $http.get('https://familysearch.org/watch/watches?watcher=cis.user.MMMM-V7PM').
+      $http.get('/watch/watches?watcher=' + cisUserId).
           success(function(data, status, headers, config) {
             console.log("watchers: ", data)
             //console.log("alerts json: " + JSON.stringify(data.alerts[0]))
@@ -78,9 +86,12 @@ fambookApp.factory('watchNotifyService', function($http, $q) {
             for(var i=0; i<data.watch.length; i++) {
               //console.log("notification loop: ", data.watch[i]);
               //var atomURL = watchAtomURL + data.watch[i].resourceId;
-              var treeURL = treeDataURL + data.watch[i].resourceId.replace(/_.*/, '') + "?tz=360&locale=en";
+              var treeURL = treeDataURL + data.watch[i].resourceId.replace(/_.*/, '') + "?tz=360&locale";
               console.log("notification url: " + treeURL)
-              //var headers = {'Cookie': "fssessionid=USYS8156F463B54A93A1B6E95731B58986DB_idses-refa04.a.fsglobal.net; ftsessionid=USYS8156F463B54A93A1B6E95731B58986DB_idses-refa04.a.fsglobal.net;"}
+              var cookieContent = "fssessionid=" + user.sessionId + "; ftsessionid=" + user.sessionId;
+              //    console.log("Cookie Content: " + cookieContent);
+
+              var headers = {headers: {'Cookie': cookieContent}};
               promiseArray.push($http.get(treeURL).
                   success(function(data, status, headers, config) {
                     //console.log("atom feed: ", data);

@@ -27,6 +27,16 @@ app.configure('development', function() {
   }
 
   app.stack.splice(0, 0, {
+    route: "/tree-data",
+    handle: proxy("https://familysearch.org/tree-data")
+  });
+
+  app.stack.splice(0, 0, {
+    route: "/watch",
+    handle: proxy("https://familysearch.org/watch")
+  });
+
+  app.stack.splice(0, 0, {
     route: "/scopeservice",
     handle: proxy("https://familysearch.org/scopeservice")
   });

@@ -6,7 +6,8 @@
 <% assets.css.push({'all': 'index.styl'}) %>
 
     <script data-control='Main'>
-
+      var user = <%- (typeof user !== 'undefined') ? JSON.stringify(user) : undefined %>;
+      console.log("User: ", user)
 
 
       var worker = new Worker('/js/worker.js');
@@ -26,7 +27,7 @@
       $('.click-alert').onclick = (function(e) {
         // init the count to 0
         var count = 0;
-        alert("click count: " + count)
+        //alert("click count: " + count)
         return function(e) {
 
           //count
