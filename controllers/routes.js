@@ -10,7 +10,7 @@ module.exports = function(app) {
 //    res.render(req.params.page, {});
 //  });
 
-  app.get('/', function(req, res){
+  app.get('/', app.restrict(), function(req, res){
     res.render("index", {'user': req.user});
   });
 
