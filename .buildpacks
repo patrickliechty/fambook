@@ -1,2 +1,3 @@
 https://github.com/timshadel/heroku-buildpack-github-netrc.git
+https://github.com/fs-webdev/buildpack-raw-github-netrc.git
 https://github.com/timshadel/heroku-buildpack-nodejs.git
