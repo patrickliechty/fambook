@@ -26,4 +26,3 @@ Run Tests
 ----------------
 
     npm test
-
