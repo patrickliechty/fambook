@@ -7,17 +7,17 @@
 
     <script data-control='Main'>
       var user = <%- (typeof user !== 'undefined') ? JSON.stringify(user) : undefined %>;
-      console.log("User: ", user)
-
-
-      var worker = new Worker('/js/worker.js');
-      worker.onmessage = function(e) {
-        console.log("Received from worker: ", e);
-      }
-      worker.postMessage({cmd: 'start'}); // Start the worker.
-      worker.addEventListener('error', function(e) {
-        console.log("Worker error: ", e);
-      }, false);
+//      console.log("User: ", user)
+//
+//
+//      var worker = new Worker('/js/worker.js');
+//      worker.onmessage = function(e) {
+//        console.log("Received from worker: ", e);
+//      }
+//      worker.postMessage({cmd: 'start'}); // Start the worker.
+//      worker.addEventListener('error', function(e) {
+//        console.log("Worker error: ", e);
+//      }, false);
 
 
 
@@ -46,19 +46,22 @@
 <div></div>
 <div id='main' class='container-fluid experiments' ng-app="fambook" ng-controller="feedController">
   <div class='no-layout'>
-    <h1 class='font21 serif'>Fambook</h1>
 
     <div class='row-fluid show-grid'>
-      <div class='favorites app-padding span3'>
+      <div class='favorites span3'>
         <h4>FAVORITES</h4>
         <ul class='unstyled'>
-          <li>
+          <li class='selected'>
             <div><a href=''>News Feed</a></div>
-            <div>4</div>
+            <div>&nbsp;</div>
           </li>
           <li>
             <div><a href=''>Relatives</a></div>
-            <div>6</div>
+            <div>24</div>
+          </li>
+          <li>
+            <div><a href=''>Friends</a></div>
+            <div>36</div>
           </li>
           <li>
             <div><a href=''>Photos</a></div>
@@ -74,14 +77,95 @@
           </li>
         </ul>
       </div>
-      <div class='aux span3'>
-        <div class='chat app-padding'>
+      <aside class='aux span3'>
+        <div class='new-people'>
+          <div>People you may know</div>
+          <ul class='unstyled'>
+            <li>
+              <div>
+                <a href='#'>
+                  <img src='img/relative.jpg'>
+                </a>
+              </div>
+              <ul class='unstyled'>
+                <li>
+                  <a href='#'>Joseph Muhlstein</a>
+                </li>
+                <li>5 mutual relatives</li>
+                <li><a href=''>View my relationship</a></li>
+                <li><a href='#'>+1 Add Relative</a></li>
+              </ul>
+            </li>
+            <li>
+              <div>
+                <a href='#'>
+                  <img src='img/michael.jpg'>
+                </a>
+              </div>
+              <ul class='unstyled'>
+                <li>
+                  <a href='#'>Michael Bennett</a>
+                </li>
+                <li>2 mutual friends</li>
+                <li><a href='#'>+1 Add friend</a></li>
+              </ul>
+            </li>
+            <li>
+              <div>
+                <a href='#'>
+                  <img src='img/grandma.jpg'>
+                </a>
+              </div>
+              <ul class='unstyled'>
+                <li>
+                  <a href='#'>Carolyn Pfaltzgraff</a>
+                </li>
+                <li>2 mutual relatives</li>
+                <li><a href=''>View my relationship</a></li>
+                <li><a href='#'>+1 Add relative</a></li>
+              </ul>
+            </li>
+            <li>
+              <div>
+                <a href='#'>
+                  <img src='img/nick.jpg'>
+                </a>
+              </div>
+              <ul class='unstyled'>
+                <li>
+                  <a href='#'>Nick Liechty</a>
+                </li>
+                <li>9 mutual relatives</li>
+                <li><a href=''>View my relationship</a></li>
+                <li><a href='#'>+1 Add relative</a></li>
+              </ul>
+            </li>
+            <li>
+              <div>
+                <a href='#'>
+                  <img src='img/william.jpg'>
+                </a>
+              </div>
+              <ul class='unstyled'>
+                <li>
+                  <a href='#'>William Christensen</a>
+                </li>
+                <li>3 mutual relatives</li>
+                <li><a href=''>View my relationship</a></li>
+                <li><a href='#'>+1 Add relative</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </aside>
+<!--        <div class='chat app-padding'>
           <chat />
         </div>
       </div>
       <div class='ajaxTest'>
         <button class='click-alert btn btn-water'>Click alert</button>
-      </div>
+      </div>-->
     </div>
   </div>
+</div>
 </div>

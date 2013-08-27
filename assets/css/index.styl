@@ -1,9 +1,13 @@
+$heading = #DEDBD7;
+$light-background = #FAF8F7;
+$field-label = #8F8A85;
+$dark-text = #4d4d4a;
+
 .app-padding {
   padding: 20px;
 }
 
 .favorites {
-  border: 1px solid black;
   height: 200px;
   li {
     div:first-child {
@@ -11,13 +15,16 @@
     }
     div:last-child {
       margin-left: 20px;
-      background-color: green;
-      color: white;
+      background-color: $light-background;
       padding: 3px;
       float: right;
     }
     overflow: auto;
-    padding-bottom: 5px;
+    padding: 5px 0 0 5px;
+    margin-bottom: 5px;
+  }
+  .selected {
+    background-color: $light-background;
   }
 }
 
@@ -27,7 +34,8 @@
 }
 
 .feed {
-  border: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
   .notification {
     overflow: auto;
     .content {
@@ -38,10 +46,10 @@
       li {
         div:first-child {
           text-align: right;
-          color: #8f8a85;
+          color: $field-label;
         }
         div:last-child {
-          color: #4d4d4a;
+          color: $dark-text;
         }
         div {
           min-height: 20px;
@@ -53,7 +61,6 @@
 }
 
 .aux {
-  border: 1px solid black;
   height: 100%;
   .chat {
     .chat-window {
@@ -81,4 +88,33 @@
   text-align: center;
   padding-top: 200px;
   background: url(loading.gif) no-repeat 50% 50%;
+}
+
+.new-people {
+  > div {
+    background-color: $heading;
+    padding: 5px;
+  }
+  ul {
+    li {
+      padding: 10px 0;
+      border-bottom: 1px solid gray;
+      border-right: 1px solid gray;
+      overflow: auto;
+      div {
+        float:left;
+        padding-right: 10px;
+        a {
+
+        }
+      }
+      ul {
+        float: left;
+        li {
+          border: none;
+          padding: 0;
+        }
+      }
+    }
+  }
 }

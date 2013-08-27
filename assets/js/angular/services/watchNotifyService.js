@@ -28,6 +28,7 @@ fambookApp.factory('watchNotifyService', function($http, $q) {
   function processTreeChanges(changes) {
     var changeArray = [];
     for(var i=0; i<changes.length; i++) {
+      console.log("changes[i]: ", changes[i])
       if(changes[i].data.changes) {
         for(var j=0; j<changes[i].data.changes.length; j++) {
           if(changes[i].data.changes[j]) {
@@ -209,7 +210,7 @@ fambookApp.factory('watchNotifyService', function($http, $q) {
     },
 
     getNotificationsStatic: function (cisUserId) {
-      var notifications = {
+      var notifications = [{
         "status":"OK",
         "statusText":"OK",
         "data":{
@@ -746,8 +747,8 @@ fambookApp.factory('watchNotifyService', function($http, $q) {
           "nextParentChangeType":null
         },
         "statuses":null
-      }
-      return processTreeChanges(notifications.data.changes);
+      }]
+      return processTreeChanges(notifications);
     },
 
     getNotifications: function(cisUserId) {
