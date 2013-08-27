@@ -15,8 +15,7 @@
     "mocha": "~1.8.2",
     "simple-http-proxy": "~0.5.0",
     "envs": "~0.1.0",
-    "websocket": "~1.0.8",
-    "socket.io": "~0.9.16"
+    "websocket": "~1.0.8"
   },
   "engines": {
     "node": "0.8.x",
