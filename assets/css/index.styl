@@ -1,10 +1,16 @@
 $heading = #DEDBD7;
 $light-background = #FAF8F7;
 $field-label = #8F8A85;
-$dark-text = #4d4d4a;
+$dark-text = #4D4D4A;
+$gray-blue = #EDEFF4;
+$border-color = #E9E9E9;
 
 .app-padding {
   padding: 20px;
+}
+
+.app-margin {
+  margin: 20px;
 }
 
 .favorites {
@@ -34,10 +40,14 @@ $dark-text = #4d4d4a;
 }
 
 .feed {
-  border-left: 1px solid black;
-  border-right: 1px solid black;
+  border-left: 1px solid $border-color;
+  border-right: 1px solid $border-color;
   .notification {
     overflow: auto;
+    border-top: 1px solid $border-color;
+    .body {
+      float: none;
+    }
     .content {
       margin-top: 20px;
     }
@@ -90,16 +100,47 @@ $dark-text = #4d4d4a;
   background: url(loading.gif) no-repeat 50% 50%;
 }
 
-.new-people {
-  > div {
-    background-color: $heading;
-    padding: 5px;
+.comments {
+  .header {
+    background-color: $gray-blue;
+    border-bottom: 1px solid white;
   }
   ul {
     li {
-      padding: 10px 0;
-      border-bottom: 1px solid gray;
-      border-right: 1px solid gray;
+      padding: 5px 0;
+      border-bottom: 1px solid white;
+      background-color: $gray-blue;
+      overflow: auto;
+      div {
+        float:left;
+        padding-right: 10px;
+        a {
+
+        }
+      }
+      ul {
+        float: left;
+        li {
+          border: none;
+          padding: 0;
+        }
+      }
+    }
+  }
+}
+
+.new-people {
+  .header {
+    background-color: $light-background
+    border-bottom: 1px solid $border-color;
+    border-right: 1px solid $border-color;
+    background-color:
+  }
+  ul {
+    li {
+      padding: 5px 0;
+      border-bottom: 1px solid $border-color;
+      border-right: 1px solid $border-color;
       overflow: auto;
       div {
         float:left;

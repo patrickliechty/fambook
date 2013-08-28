@@ -71,15 +71,15 @@
       </div>
       <div class='feed span6'>
         <div class='spinner'></div>
-        <ul class='unstyled app-padding'>
-          <li class='app-padding' ng-repeat="alert in alerts | orderBy:-changeTime">
+        <ul class='unstyled app-margin'>
+          <li ng-repeat="alert in alerts | orderBy:-changeTime">
             <notification/>
           </li>
         </ul>
       </div>
       <aside class='aux span3'>
         <div class='new-people'>
-          <div>People you may know</div>
+          <div class='header'>People you may know</div>
           <ul class='unstyled'>
             <li>
               <div>

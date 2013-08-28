@@ -6,13 +6,15 @@ fambookApp.controller('feedController', function ($scope, $q, soiService, watchN
   $scope.alerts = [];
   var promiseArray = [];
   var alertsArray = [];
-  var staticData = /static/.test($location.absUrl());
+  var staticData = /demo/.test($location.absUrl());
 
   if(staticData) {
     var alerts = soiService.getAlertsStatic('');
     var notifications = watchNotifyService.getNotificationsStatic('');
     alertsArray = alertsArray.concat(alerts, notifications);
     alertsArray = alertsArray.sort(function(a, b) {
+      console.log("a fields: "+ JSON.stringify(a.fields) + " date: " + a.changeTime)
+      console.log("b fields: "+ JSON.stringify(b.fields) + " date: " + b.changeTime)
       return a.changeTime > b.changeTime;
     });
     console.log("alert array: ",  alertsArray);
