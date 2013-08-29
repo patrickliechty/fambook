@@ -31,10 +31,10 @@ module.exports = function(app) {
   });
 
   app.get('/getangularimage/:imagename', function(req, res) {
-    //console.log("APP=", app);
-    //console.log("app.dynamicViewHelpers=", app.dynamicViewHelpers);
+    console.log("APP=", app);
+    console.log("app.dynamicViewHelpers=", app.dynamicViewHelpers);
     console.log("req.params.imagename=" + req.params.imagename);
-    //console.log("req.img.val=" + app.dynamicViewHelpers.img(req.params.imagename));
+    //console.log("app.dynamicViewHelpers=" + app.dynamicViewHelpers.img(req.params.imagename));
     var imagePath = app.dynamicViewHelpers.img(req.params.imagename).call(req.params.imagename);
     console.log("imagePath1=", imagePath)
     if(imagePath === '') {

@@ -10,7 +10,7 @@ var woodruff = require("woodruff")
 var app = module.exports = woodruff(__dirname, shared);
 
 
-app.configure('development', function() {
+//app.configure('development', function() {
   var proxy = require("simple-http-proxy"),
       env = require('envs'),
       treeBaseUrl = env("TREE_BASE_URL", "https://familysearch.org");
@@ -40,7 +40,7 @@ app.configure('development', function() {
     route: "/scopeservice",
     handle: proxy("https://familysearch.org/scopeservice")
   });
-});
+//});
 
 //var io = require('socket.io').listen(app);
 //
