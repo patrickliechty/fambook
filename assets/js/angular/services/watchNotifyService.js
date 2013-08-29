@@ -1,4 +1,4 @@
-fambookApp.factory('watchNotifyService', function($http, $q) {
+fambookApp.factory('watchNotifyService', function($http, $q, $filter) {
   var watchAtomURL = "https://familysearch.org/watch/atom/resource/";
   var treeDataURL = "/tree-data/changes/person/";
   var treePersonURL = "https://familysearch.org/tree/#view=ancestor&person=";
@@ -40,20 +40,23 @@ fambookApp.factory('watchNotifyService', function($http, $q) {
             change.href = '#';
             if(change.conclusion) {
               change.fields.push({'label': 'Title:', 'value': change.conclusion.details.title});
-              change.fields.push({'label': 'Name Type:', 'value': change.conclusion.details.nameType});
+              //change.fields.push({'label': 'Change Type:', 'value': change.conclusion.details.nameType});
               change.fields.push({'label': 'Name:', 'value': change.conclusion.details.fullText});
               if(change.conclusion.details.relationshipId) {
                 change.href = treePersonURL + change.conclusion.details.relationshipId;
+                change.fields.push({'label': 'Tree Id:', 'value': change.conclusion.details.relationshipId});
               }
             }
-            change.fields.push({'label': 'Date:', 'value': change.timeStampDisplay});
+            //change.fields.push({'label': 'Date:', 'value': change.timeStampDisplay});
             if(change.contributor) {
               change.fields.push({'label': 'by:', 'value': change.contributor.name});
             }
 
             change.image = 'family-tree.png';
             change.changeTime = new Date(change.timeStamp);
-            change.fields.push({'label': 'Change Time:', 'value': change.changeTime});
+            var dateFilter = $filter('date');
+            change.changeTime = dateFilter(change.changeTime, 'shortDate');
+            change.fields.push({'label': 'Date:', 'value': change.changeTime});
             console.log("change: ", change)
             changeArray.push(change);
           }
@@ -256,7 +259,7 @@ fambookApp.factory('watchNotifyService', function($http, $q) {
                 "timestamp":null
               },
               "timeStamp":1370195337819,
-              "timeStampDisplay":"2 June 2013",
+              "timeStampDisplay":"2 June 2013"
             },
             {
               "id":"D821-Y6W",
@@ -329,7 +332,7 @@ fambookApp.factory('watchNotifyService', function($http, $q) {
                   "uri":"MMQC-8N3",
                   "referenceType":"",
                   "justification":null,
-                  "title":"Brigham J Liechty, &quot;United States Census, 1940&quot;",
+                  "title":"Brigham J Liechty, United States Census, 1940",
                   "conclusionTypes":[
 
                   ],

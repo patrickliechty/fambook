@@ -1,4 +1,4 @@
-fambookApp.factory('soiService', function($http, $q) {
+fambookApp.factory('soiService', function($http, $q, $filter) {
   var artifactManagerURL = 'https://familysearch.org/artifactmanager/artifacts/';
   var photosImageURL = 'https://familysearch.org/photos/images/';
 
@@ -30,7 +30,9 @@ fambookApp.factory('soiService', function($http, $q) {
           alert.image = 'temple-extra-large.png';
         }
       }
+      var dateFilter = $filter('date');
       alert.changeTime = new Date(alert.updateTime);
+      alert.changeTime = dateFilter(alert.changeTime, 'shortDate');
       alert.fields.push({'label': 'Date:', 'value': alert.changeTime});
 
       //console.log("alert: ", alert)

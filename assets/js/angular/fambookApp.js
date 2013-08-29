@@ -14,9 +14,9 @@ fambookApp.controller('feedController', function ($scope, $q, soiService, watchN
     alertsArray = alertsArray.concat(alerts, notifications);
     console.log("alert array: ",  alertsArray);
     alertsArray = alertsArray.sort(function(a, b) {
-      console.log("a fields: "+ JSON.stringify(a.fields) + " date: " + a.changeTime)
-      console.log("b fields: "+ JSON.stringify(b.fields) + " date: " + b.changeTime)
-      return b.changeTime > a.changeTime;
+      //console.log("a fields: "+ JSON.stringify(a.fields) + " date: " + a.changeTime)
+      //console.log("b fields: "+ JSON.stringify(b.fields) + " date: " + b.changeTime)
+      return a.changeTime > b.changeTime;
     });
     console.log("alert array: ",  alertsArray);
     $scope.alerts = alertsArray;
@@ -31,9 +31,9 @@ fambookApp.controller('feedController', function ($scope, $q, soiService, watchN
     FB.Promise.all($q, promiseArray).then(function(results) {
           console.log("controller final results: ", results);
           alertsArray = alertsArray.concat(results[0], results[1]);
-//          alertsArray = alertsArray.sort(function(a, b) {
-//            return a.changeTime > b.changeTime;
-//          });
+          alertsArray = alertsArray.sort(function(a, b) {
+            return a.changeTime > b.changeTime;
+          });
           console.log("controller final results1: ", results);
           deferred.resolve(alertsArray);
         },
