@@ -21,4 +21,25 @@ module.exports = function(app) {
   app.get(/^\/partials\/(.*)/, function(req, res) {
     res.partial('partials/' + req.params[0]);
   });
+
+  app.param('imagename',function(req, res, next){
+    if(/\.jpg/.test(req.url) || /\.png/.test(req.url)){
+      next();
+    } else {
+      next('route');
+    }
+  });
+
+  app.get('/getangularimage/:imagename', function(req, res) {
+    //console.log("APP=", app);
+    //console.log("app.dynamicViewHelpers=", app.dynamicViewHelpers);
+    //console.log("req.params.imagename=" + req.params.imagename);
+    //console.log("req.img.val=" + app.dynamicViewHelpers.img(req.params.imagename));
+    var imagePath = app.dynamicViewHelpers.img(req.params.imagename).call(req.params.imagename);
+    if(imagePath === '') {
+      imagePath = '/img/' + req.params.imagename;
+    }
+    console.log("imagePath=", imagePath)
+    res.redirect(imagePath);
+  });
 }

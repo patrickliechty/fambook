@@ -53,6 +53,7 @@ fambookApp.factory('watchNotifyService', function($http, $q) {
 
             change.image = 'family-tree.png';
             change.changeTime = new Date(change.timeStamp);
+            change.fields.push({'label': 'Change Time:', 'value': change.changeTime});
             console.log("change: ", change)
             changeArray.push(change);
           }
@@ -256,18 +257,6 @@ fambookApp.factory('watchNotifyService', function($http, $q) {
               },
               "timeStamp":1370195337819,
               "timeStampDisplay":"2 June 2013",
-              "comments": [
-                {
-                  user: {name: "John Liechty", image: 'john.jpg'},
-                  updated: "about an hour ago",
-                  text: "I have been looking for that source."
-                },
-                {
-                  user: {name: "Brian Liechty", image: 'brian.jpg'},
-                  updated: "about an hour ago",
-                  text: "Nice find"
-                }
-              ]
             },
             {
               "id":"D821-Y6W",
@@ -286,7 +275,7 @@ fambookApp.factory('watchNotifyService', function($http, $q) {
                   "uri":"MMQN-X6N",
                   "referenceType":"",
                   "justification":null,
-                  "title":"Brigham J Liechty, &quot;United States Census, 1940&quot;",
+                  "title":"Brigham J Liechty, United States Census, 1940",
                   "conclusionTypes":[
 
                   ],
@@ -309,7 +298,19 @@ fambookApp.factory('watchNotifyService', function($http, $q) {
                 "timestamp":null
               },
               "timeStamp":1370194991278,
-              "timeStampDisplay":"2 June 2013"
+              "timeStampDisplay":"2 June 2013",
+              "comments": [
+                {
+                  user: {name: "John Liechty", image: '/getangularimage/john.jpg'},
+                  updated: "about an hour ago",
+                  text: "I have been looking for that source."
+                },
+                {
+                  user: {name: "Brian Liechty", image: '/getangularimage/brian.jpg'},
+                  updated: "about an hour ago",
+                  text: "Nice find"
+                }
+              ]
             },
             {
               "id":"D87R-P8Y",

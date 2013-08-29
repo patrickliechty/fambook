@@ -1,5 +1,5 @@
 <div class='notification app-padding'>
-  <div class='image span2'><img src='img/{{alert.image}}'></div>
+  <div class='image span2'><img src='/getangularimage/{{alert.image}}'></div>
   <div class='span8 body'>
     <div>
       <a target='_blank' href="{{ alert.href }}">{{ alert.titleText }}</a>
@@ -32,7 +32,7 @@
       <li ng-repeat='comment in alert.comments'>
         <div>
           <a href='#'>
-            <img src='img/{{ comment.user.image }}'>
+            <img src='{{ comment.user.image }}'>
           </a>
         </div>
         <ul class='unstyled'>
@@ -45,12 +45,12 @@
       <li>
         <div>
           <a href='#'>
-            <img src='img/patrick.jpg'>
+            <img src='/getangularimage/patrick.jpg'>
           </a>
         </div>
         <ul class='unstyled'>
           <li>
-            <input type=text placeholder="Write a comment...">
+            <input class='comment-input' type='text' placeholder="Write a comment...">
           </li>
         </ul>
       </li>

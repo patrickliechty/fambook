@@ -47,6 +47,7 @@ $border-color = #E9E9E9;
     border-top: 1px solid $border-color;
     .body {
       float: none;
+      padding-left: 10px;
     }
     .content {
       margin-top: 20px;
@@ -101,9 +102,12 @@ $border-color = #E9E9E9;
 }
 
 .comments {
+  margin-top: 10px;
+  font-size: 12px;
   .header {
     background-color: $gray-blue;
     border-bottom: 1px solid white;
+    padding-left: 5px;
   }
   ul {
     li {
@@ -123,6 +127,11 @@ $border-color = #E9E9E9;
         li {
           border: none;
           padding: 0;
+          .comment-input {
+            height: 15px;
+            width: 300px;
+            font-size: 11px;
+          }
         }
       }
     }
@@ -130,7 +139,9 @@ $border-color = #E9E9E9;
 }
 
 .new-people {
+  font-size: 13px;
   .header {
+    font-size: 14px;
     background-color: $light-background
     border-bottom: 1px solid $border-color;
     border-right: 1px solid $border-color;
@@ -138,6 +149,7 @@ $border-color = #E9E9E9;
   }
   ul {
     li {
+      line-height: 16px;
       padding: 5px 0;
       border-bottom: 1px solid $border-color;
       border-right: 1px solid $border-color;
