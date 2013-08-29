@@ -8,7 +8,7 @@ fambookApp.factory('watchNotifyService', function($http, $q, $filter) {
     for(var i=0; i<notifications.length; i++) {
       if(notifications[i]) {
         var notification = notifications[i];
-        console.log("notification: ", notification)
+        //console.log("notification: ", notification)
         for(var j=0; j<notification.links.length; j++) {
           if(notification.links[j].rel === 'feedLink') {
             notification.href = notification.links[j].href;
@@ -18,22 +18,20 @@ fambookApp.factory('watchNotifyService', function($http, $q, $filter) {
         notification.titleText = 'Family Tree Alert';
         notification.image = 'family-tree.png';
         notification.changeTime = new Date(notification.updated);
-        //console.log("notification: ", notification)
       }
     }
-    console.log("notifications: ", notifications)
     return notifications;
   }
 
   function processTreeChanges(changes) {
     var changeArray = [];
     for(var i=0; i<changes.length; i++) {
-      console.log("changes[i]: ", changes[i])
+      //console.log("changes[i]: ", changes[i])
       if(changes[i].data.changes) {
         for(var j=0; j<changes[i].data.changes.length; j++) {
           if(changes[i].data.changes[j]) {
             var change = changes[i].data.changes[j];
-            console.log("notification: ", change)
+            //console.log("notification: ", change)
             change.titleText = "Family Tree Alert";
             change.titleText += ' - ' + FB.Util.getTreeText(change.type);
             change.fields = [];
@@ -57,12 +55,12 @@ fambookApp.factory('watchNotifyService', function($http, $q, $filter) {
             var dateFilter = $filter('date');
             change.changeTime = dateFilter(change.changeTime, 'shortDate');
             change.fields.push({'label': 'Date:', 'value': change.changeTime});
-            console.log("change: ", change)
+            //console.log("change: ", change)
             changeArray.push(change);
           }
         }
       }
-      console.log("notifications: ", changes)
+      //console.log("notifications: ", changes)
     }
     return changeArray;
   }
@@ -76,30 +74,14 @@ fambookApp.factory('watchNotifyService', function($http, $q, $filter) {
       $http.get('/watch/watches?watcher=' + cisUserId).
           success(function(data, status, headers, config) {
             console.log("watchers: ", data)
-            //console.log("alerts json: " + JSON.stringify(data.alerts[0]))
-//            var sub = deferred.promise.then(function() {
-//              $http.get(data.watch[0].resourceId).
-//                  success(function(data, status, headers, config) {
-//
-//                    sub.resolve(processNotifications(data));
-//                  })
-//                  .error(function(data, status, headers, config) {
-//                    sub.reject(status);
-//                  });
-//            });
             var promiseArray = [];
             for(var i=0; i<data.watch.length; i++) {
-              //console.log("notification loop: ", data.watch[i]);
-              //var atomURL = watchAtomURL + data.watch[i].resourceId;
               var treeURL = treeDataURL + data.watch[i].resourceId.replace(/_.*/, '') + "?tz=360&locale";
-              console.log("notification url: " + treeURL)
               var cookieContent = "fssessionid=" + user.sessionId + "; ftsessionid=" + user.sessionId;
-              //    console.log("Cookie Content: " + cookieContent);
 
               var headers = {headers: {'Cookie': cookieContent}};
               promiseArray.push($http.get(treeURL).
                   success(function(data, status, headers, config) {
-                    //console.log("atom feed: ", data);
                     successResults = successResults.concat(data);
                   })
                   .error(function(data, status, headers, config) {
@@ -107,17 +89,14 @@ fambookApp.factory('watchNotifyService', function($http, $q, $filter) {
                   }));
             }
             FB.Promise.all($q, promiseArray).then(function(results) {
-              console.log("final results: ", successResults);
               deferred.resolve(processTreeChanges(successResults));
             },
             function(event) {
-              console.log("final results error: ", successResults);
               if(results.length === 0) {
                 deferred.reject(404);
               }
               deferred.resolve(processTreeChanges(successResults));
             });
-            //successcb(processAlerts(data.alerts));
           })
           .error(function(data, status, headers, config) {
             deferred.reject(status);

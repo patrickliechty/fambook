@@ -6,7 +6,7 @@ fambookApp.factory('soiService', function($http, $q, $filter) {
     for(var i=0; i<alerts.length; i++) {
       var alert = alerts[i];
       alert.context = JSON.parse(alerts[i].context);
-      console.log("applicationID: " + alert.applicationID);
+      //console.log("applicationID: " + alert.applicationID);
       if(alert.applicationID === 'engage.artifactmanager') {
         alert.titleText = 'Photos Alert';
         if(alert.alertType === 'artifact.added') {
@@ -19,8 +19,6 @@ fambookApp.factory('soiService', function($http, $q, $filter) {
           alert.href = photosImageURL + alert.context.artifactId;
           alert.fields.push({'label': 'Title:', 'value': alert.context.title});
         }
-        //alert.imageHeight = '89';
-        //alert.imageWidth = '95';
       }
       else if(alert.applicationID === 'engage.start.soi') {
         alert.title = "engage.start.soi";
@@ -220,9 +218,7 @@ fambookApp.factory('soiService', function($http, $q, $filter) {
       $http.get('https://familysearch.org/alertservice/alert/user/' + cisUserId,
           {headers:{'Authorization': 'Bearer ' + user.sessionId}}).
           success(function(data, status, headers, config) {
-            //console.log("alerts json: " + JSON.stringify(data.alerts[0]))
             deferred.resolve(processAlerts(data.alerts));
-            //successcb(processAlerts(data.alerts));
           })
           .error(function(data, status, headers, config) {
             deferred.reject(status);

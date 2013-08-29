@@ -6,9 +6,9 @@ fambookApp.controller('feedController', function ($scope, $q, soiService, watchN
   $scope.alerts = [];
   var promiseArray = [];
   var alertsArray = [];
-  var staticData = /demo/.test($location.absUrl());
+  var demoData = /demo/.test($location.absUrl());
 
-  if(staticData) {
+  if(demoData) {
     var alerts = soiService.getAlertsStatic('');
     var notifications = watchNotifyService.getNotificationsStatic('');
     alertsArray = alertsArray.concat(alerts, notifications);
@@ -53,11 +53,3 @@ fambookApp.controller('feedController', function ($scope, $q, soiService, watchN
     });
   }
 });
-
-//angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives'])
-//    .config(function ($routeProvider, $locationProvider) {
-//      $routeProvider.when('/events', {templateUrl: '/partials/eventList.html', controller: EventListController });
-//      $routeProvider.when('/event/:eventId', {templateUrl: '/partials/event.html', controller: EventController})
-//      $routeProvider.otherwise({redirectTo: '/events'});
-//      $locationProvider.html5Mode(true);
-//    });
