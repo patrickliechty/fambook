@@ -4,8 +4,9 @@
 
 <% assets.css.push({'all': 'index.styl'}) %>
 
-    <script data-control='Main'>
+    <script>
       var user = <%- (typeof user !== 'undefined') ? JSON.stringify(user) : undefined %>;
+      //Eventually I want to add use this web worker to update the news feed.
 //      console.log("User: ", user)
 //
 //
@@ -18,28 +19,6 @@
 //        console.log("Worker error: ", e);
 //      }, false);
 
-
-
-
-
-
-      $('.click-alert').onclick = (function(e) {
-        // init the count to 0
-        var count = 0;
-        //alert("click count: " + count)
-        return function(e) {
-
-          //count
-          count++;
-
-          if (count === 3) {
-            // do something every third time
-            alert("Third time's the charm!");
-            //reset counter
-            count = 0;
-          }
-        };
-      })();
 
     </script>
 <div></div>
