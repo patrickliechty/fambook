@@ -1,5 +1,5 @@
 <div class='notification app-padding'>
-  <div class='image span2'><img src='/getangularimage/{{alert.image}}'></div>
+  <div class='image span2'><img src='{{alert.image}}'></div>
   <div class='span8 body'>
     <div>
       <a target='_blank' href="{{ alert.href }}">{{ alert.titleText }}</a>
@@ -45,7 +45,7 @@
       <li>
         <div>
           <a href='#'>
-            <img src='/getangularimage/patrick.jpg'>
+            <img src='{{ alert.user.image }}'>
           </a>
         </div>
         <ul class='unstyled'>

@@ -37,10 +37,20 @@ $.extend(typeof FB === "object" ? FB : FB = {}, {
         "ADD_LINEAGE": "Added relatives",
         "EDIT_PREFERRED_NAME": "Name Changed",
         "ADD_ALTERNATE_NAME": "Alternate Name Changed",
-        "DELETE_ALTERNATE_NAME": "Delete Alternate Name"
+        "DELETE_ALTERNATE_NAME": "Delete Alternate Name",
+        "ADD_COUPLE_EVENT": "Add Couple",
+        "DELETE_PARENT_CHILD_RELATIONSHIP": "Delete Parent/Child Relationship"
       }
 
       return map[id];
+    },
+
+    getAngularImage: function (image) {
+      console.log("Get image: " + image)
+      if (typeof window.manifest === "undefined" || typeof window.manifest.img[name] === "undefined") { return name; }
+        console.log("window.manifest.img[image]=" + window.manifest.img[image]);
+        return window.manifest.img[image];
+      }
     }
-  }
+
 });

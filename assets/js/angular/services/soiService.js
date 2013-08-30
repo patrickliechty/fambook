@@ -1,4 +1,4 @@
-fambookApp.factory('soiService', function($http, $q, $filter) {
+fambookApp.factory('soiService', function($http, $q, $filter, FS) {
   var artifactManagerURL = 'https://familysearch.org/artifactmanager/artifacts/';
   var photosImageURL = 'https://familysearch.org/photos/images/';
 
@@ -6,13 +6,14 @@ fambookApp.factory('soiService', function($http, $q, $filter) {
     for(var i=0; i<alerts.length; i++) {
       var alert = alerts[i];
       alert.context = JSON.parse(alerts[i].context);
+      console.log("soiAlert: " + JSON.stringify(alert));
       //console.log("applicationID: " + alert.applicationID);
       if(alert.applicationID === 'engage.artifactmanager') {
         alert.titleText = 'Photos Alert';
         if(alert.alertType === 'artifact.added') {
           alert.titleText += " - Artifact Added";
         }
-        alert.image = 'photos.png';
+        alert.image = FS.File.Image('photos.png');
         alert.fields = [];
         if(alert.context.artifactId) {
           alert.url = artifactManagerURL + alert.context.artifactId;
@@ -28,6 +29,9 @@ fambookApp.factory('soiService', function($http, $q, $filter) {
           alert.image = 'temple-extra-large.png';
         }
       }
+      alert.user = {};
+      alert.user.image = FS.File.Image('patrick.jpg');
+      console.log("user iamge: " + alert.user.image)
       var dateFilter = $filter('date');
       alert.changeTime = new Date(alert.updateTime);
       alert.changeTime = dateFilter(alert.changeTime, 'shortDate');
@@ -77,12 +81,12 @@ fambookApp.factory('soiService', function($http, $q, $filter) {
           "contextMediaType": "application/json",
           "comments": [
             {
-              user: {name: "John Liechty", image: '/getangularimage/john.jpg'},
+              user: {name: "John Liechty", image: FS.File.Image('john.jpg')},
               updated: "about an hour ago",
               text: "Nice picture! Thanks for uploading it."
             },
             {
-              user: {name: "Brian Liechty", image: '/getangularimage/brian.jpg'},
+              user: {name: "Brian Liechty", image: FS.File.Image('brian.jpg')},
               updated: "about an hour ago",
               text: "I didn't know that picture existed."
             }

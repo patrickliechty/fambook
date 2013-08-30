@@ -1,7 +1,6 @@
 <% page = { 'title' : 'Fambook', 'key': 'Fambook Home'} %>
 <% assets = { 'css' : [], 'js' : ['angular-1.0.3.js', 'angular/fambookApp.js', 'angular/services/soiService.js', 'angular/services/watchNotifyService.js',
-'angular/directives/notification.js', 'util-fambook.js', 'angular/filters/html-filter.js', 'bootstrap.js',
-'angular/directives/chat.js', 'socket.io.js'] } %>
+'angular/directives/notification.js', 'util-fambook.js', 'angular/filters/html-filter.js', 'bootstrap.js', 'angular/services/fs.js', 'angular/directives/chat.js'] } %>
 
 <% assets.css.push({'all': 'index.styl'}) %>
 
@@ -84,7 +83,7 @@
             <li>
               <div>
                 <a href='#'>
-                  <img src='/getangularimage/relative.jpg'>
+                  <img src='{{ images.relative }}'>
                 </a>
               </div>
               <ul class='unstyled'>
@@ -99,7 +98,7 @@
             <li>
               <div>
                 <a href='#'>
-                  <img src='/getangularimage/michael.jpg'>
+                  <img src='{{ images.michael }}'>
                 </a>
               </div>
               <ul class='unstyled'>
@@ -113,7 +112,7 @@
             <li>
               <div>
                 <a href='#'>
-                  <img src='/getangularimage/grandma.jpg'>
+                  <img src='{{ images.grandma }}'>
                 </a>
               </div>
               <ul class='unstyled'>
@@ -128,7 +127,7 @@
             <li>
               <div>
                 <a href='#'>
-                  <img src='/getangularimage/nick.jpg'>
+                  <img src='{{ images.nick }}'>
                 </a>
               </div>
               <ul class='unstyled'>
@@ -143,7 +142,7 @@
             <li>
               <div>
                 <a href='#'>
-                  <img src='/getangularimage/william.jpg'>
+                  <img src="{{ images.william }}">
                 </a>
               </div>
               <ul class='unstyled'>

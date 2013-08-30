@@ -2,11 +2,19 @@
 
 var fambookApp = angular.module('fambook', []);
 
-fambookApp.controller('feedController', function ($scope, $q, soiService, watchNotifyService, $location) {
+fambookApp.controller('feedController', function ($scope, $q, soiService, watchNotifyService, $location, FS) {
   $scope.alerts = [];
   var promiseArray = [];
   var alertsArray = [];
   var demoData = /demo/.test($location.absUrl());
+  $scope.images = {
+    'brian': FS.File.Image('brian.jpg'),
+    'michael': FS.File.Image('michael.jpg'),
+    'william': FS.File.Image('william.jpg'),
+    'nick': FS.File.Image('nick.jpg'),
+    'grandma': FS.File.Image('grandma.jpg'),
+    'relative': FS.File.Image('relative.jpg')
+  }
 
   if(demoData) {
     var alerts = soiService.getAlertsStatic('');
@@ -34,7 +42,7 @@ fambookApp.controller('feedController', function ($scope, $q, soiService, watchN
           alertsArray = alertsArray.sort(function(a, b) {
             return a.changeTime > b.changeTime;
           });
-          console.log("controller final results1: ", results);
+          //console.log("FINAL ARRAY:" + JSON.stringify(alertsArray));
           deferred.resolve(alertsArray);
         },
         function(event) {
@@ -42,9 +50,7 @@ fambookApp.controller('feedController', function ($scope, $q, soiService, watchN
           deferred.reject(event.status);
         });
 
-    //$scope.alerts = watchNotifyService.getWatches();
     deferred.promise.then(function(results){
-      console.log("Hide spinner: ", results);
       $('.spinner').hide();
       $scope.alerts = results;
     },

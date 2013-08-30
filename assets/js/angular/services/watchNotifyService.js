@@ -1,4 +1,4 @@
-fambookApp.factory('watchNotifyService', function($http, $q, $filter) {
+fambookApp.factory('watchNotifyService', function($http, $q, $filter, FS) {
   var watchAtomURL = "https://familysearch.org/watch/atom/resource/";
   var treeDataURL = "/tree-data/changes/person/";
   var treePersonURL = "https://familysearch.org/tree/#view=ancestor&person=";
@@ -50,12 +50,14 @@ fambookApp.factory('watchNotifyService', function($http, $q, $filter) {
               change.fields.push({'label': 'by:', 'value': change.contributor.name});
             }
 
-            change.image = 'family-tree.png';
+            change.image = FS.File.Image('family-tree.png');
             change.changeTime = new Date(change.timeStamp);
             var dateFilter = $filter('date');
             change.changeTime = dateFilter(change.changeTime, 'shortDate');
             change.fields.push({'label': 'Date:', 'value': change.changeTime});
             //console.log("change: ", change)
+            change.user = {};
+            change.user.image = FS.File.Image('patrick.jpg');
             changeArray.push(change);
           }
         }
@@ -283,12 +285,12 @@ fambookApp.factory('watchNotifyService', function($http, $q, $filter) {
               "timeStampDisplay":"2 June 2013",
               "comments": [
                 {
-                  user: {name: "John Liechty", image: '/getangularimage/john.jpg'},
+                  user: {name: "John Liechty", image: FS.File.Image('john.jpg')},
                   updated: "about an hour ago",
                   text: "I have been looking for that source."
                 },
                 {
-                  user: {name: "Brian Liechty", image: '/getangularimage/brian.jpg'},
+                  user: {name: "Brian Liechty", image: FS.File.Image('brian.jpg')},
                   updated: "about an hour ago",
                   text: "Nice find"
                 }
