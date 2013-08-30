@@ -1,4 +1,4 @@
-fambookApp.factory('soiService', function($http, $q, $filter, FS) {
+fambookApp.factory('soiService', ['$http', '$q', '$filter', 'FS', function($http, $q, $filter, FS) {
   var artifactManagerURL = 'https://familysearch.org/artifactmanager/artifacts/';
   var photosImageURL = 'https://familysearch.org/photos/images/';
 
@@ -234,4 +234,4 @@ fambookApp.factory('soiService', function($http, $q, $filter, FS) {
   }
 
   return service;
-});
+}]);

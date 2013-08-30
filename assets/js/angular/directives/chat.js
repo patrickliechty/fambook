@@ -1,6 +1,6 @@
 'use strict';
 
-fambookApp.directive('chat', function($http) {
+fambookApp.directive('chat', ['$http', function($http) {
   var chat = io.connect('http://localhost:5000/chat')
       , news = io.connect('http://localhost:5000/news');
   var connection;
@@ -76,5 +76,5 @@ fambookApp.directive('chat', function($http) {
     }
   }
 
-});
+}]);
 

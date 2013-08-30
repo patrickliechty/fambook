@@ -1,6 +1,6 @@
 'use strict';
 
-fambookApp.directive('notification', function($http) {
+fambookApp.directive('notification', ['$http', function($http) {
   return {
     restrict: 'E',
     templateUrl: '/partials/notification.ejs',
@@ -21,4 +21,4 @@ fambookApp.directive('notification', function($http) {
       }
     }
   }
-});
+}]);

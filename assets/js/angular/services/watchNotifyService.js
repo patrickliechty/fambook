@@ -1,4 +1,4 @@
-fambookApp.factory('watchNotifyService', function($http, $q, $filter, FS) {
+fambookApp.factory('watchNotifyService', ['$http', '$q', '$filter', 'FS', function($http, $q, $filter, FS) {
   var watchAtomURL = "https://familysearch.org/watch/atom/resource/";
   var treeDataURL = "/tree-data/changes/person/";
   var treePersonURL = "https://familysearch.org/tree/#view=ancestor&person=";
@@ -769,4 +769,4 @@ fambookApp.factory('watchNotifyService', function($http, $q, $filter, FS) {
   }
 
   return service;
-});
+}]);
