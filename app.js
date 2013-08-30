@@ -40,7 +40,23 @@ var app = module.exports = woodruff(__dirname, shared);
     route: "/scopeservice",
     handle: proxy("https://familysearch.org/scopeservice")
   });
-//});
+
+  app.stack.splice(0, 0, {
+    route: "/alertservice",
+    handle: proxy("https://familysearch.org/alertservice")
+  });
+
+  app.stack.splice(0, 0, {
+    route: "/cas-public-api",
+    handle: proxy("https://familysearch.org/cas-public-api")
+  });
+
+  app.stack.splice(0, 0, {
+    route: "/cis-public-api",
+    handle: proxy("https://familysearch.org/cis-public-api")
+  });
+
+  //});
 
 //var io = require('socket.io').listen(app);
 //

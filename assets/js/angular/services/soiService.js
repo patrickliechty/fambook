@@ -31,7 +31,7 @@ fambookApp.factory('soiService', function($http, $q, $filter, FS) {
       }
       alert.user = {};
       alert.user.image = FS.File.Image('patrick.jpg');
-      console.log("user iamge: " + alert.user.image)
+      //console.log("user iamge: " + alert.user.image)
       var dateFilter = $filter('date');
       alert.changeTime = new Date(alert.updateTime);
       alert.changeTime = dateFilter(alert.changeTime, 'shortDate');
