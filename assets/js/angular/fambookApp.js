@@ -2,7 +2,7 @@
 
 var fambookApp = angular.module('fambook', []);
 
-fambookApp.controller('feedController', function ($scope, $q, soiService, watchNotifyService, $location, FS) {
+fambookApp.controller('feedController', ['$scope', '$q', 'soiService', 'watchNotifyService', '$location', 'FS', function ($scope, $q, soiService, watchNotifyService, $location, FS) {
   $scope.alerts = [];
   var promiseArray = [];
   var alertsArray = [];
@@ -58,4 +58,4 @@ fambookApp.controller('feedController', function ($scope, $q, soiService, watchN
       console.log('Scope.alerts failure', event)
     });
   }
-});
+}]);
