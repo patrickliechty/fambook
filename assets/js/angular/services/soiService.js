@@ -35,6 +35,7 @@ fambookApp.factory('soiService', ['$http', '$q', '$filter', 'FS', function($http
       var dateFilter = $filter('date');
       alert.changeTime = new Date(alert.updateTime);
       alert.changeTime = dateFilter(alert.changeTime, 'shortDate');
+      alert.fields = [];
       alert.fields.push({'label': 'Date:', 'value': alert.changeTime});
 
       //console.log("alert: ", alert)
