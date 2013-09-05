@@ -8,7 +8,7 @@ fambookApp.factory('watchNotifyService', ['$http', '$q', '$filter', 'FS', functi
     for(var i=0; i<notifications.length; i++) {
       if(notifications[i]) {
         var notification = notifications[i];
-        //console.log("notification: ", notification)
+        console.log("notification: " + JSON.stringify(notification))
         for(var j=0; j<notification.links.length; j++) {
           if(notification.links[j].rel === 'feedLink') {
             notification.href = notification.links[j].href;
@@ -31,11 +31,13 @@ fambookApp.factory('watchNotifyService', ['$http', '$q', '$filter', 'FS', functi
         for(var j=0; j<changes[i].data.changes.length; j++) {
           if(changes[i].data.changes[j]) {
             var change = changes[i].data.changes[j];
-            //console.log("notification: ", change)
+            console.log("notification: " + JSON.stringify(change));
             change.titleText = "Family Tree Alert";
             change.titleText += ' - ' + FB.Util.getTreeText(change.type);
             change.fields = [];
             change.href = '#';
+            change.fields.push({'label': 'Note:', 'value': 'Tree alerts are under construction'});
+
             if(change.conclusion) {
               change.fields.push({'label': 'Title:', 'value': change.conclusion.details.title});
               //change.fields.push({'label': 'Change Type:', 'value': change.conclusion.details.nameType});

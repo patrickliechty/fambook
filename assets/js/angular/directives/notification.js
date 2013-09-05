@@ -36,9 +36,7 @@ fambookApp.directive('notification', ['$http', function($http) {
         }
       }
       else {
-        console.log("relationshipid: " + scope.alert.conclusion.details.relationshipId);
-        console.log("user.personId: " + user.personId)
-        if(scope.alert.conclusion.details.relationshipId) {
+        if(scope.alert.concluclusion && scope.alert.conclusion.details && scope.alert.conclusion.details.relationshipId) {
           console.log("Setup relationship cal control")
           element.find('.relationshipCalculator a').attr('data-control', "relationshipCalc");
           var dataConfig = "{ \"personId\": \"" + user.personId +

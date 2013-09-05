@@ -1,24 +1,29 @@
 fambookApp.factory('soiService', ['$http', '$q', '$filter', 'FS', function($http, $q, $filter, FS) {
   var artifactManagerURL = 'https://familysearch.org/artifactmanager/artifacts/';
   var photosImageURL = 'https://familysearch.org/photos/images/';
+  var templeURL = "https://familysearch.org/temple/all";
 
   function processAlerts(alerts) {
     for(var i=0; i<alerts.length; i++) {
       var alert = alerts[i];
       alert.context = JSON.parse(alerts[i].context);
-      //console.log("soiAlert: " + JSON.stringify(alert));
+      console.log("soiAlert: " + JSON.stringify(alert));
       //console.log("applicationID: " + alert.applicationID);
+      alert.fields = [];
       if(alert.applicationID === 'engage.artifactmanager') {
         alert.titleText = 'Photos Alert';
         if(alert.alertType === 'artifact.added') {
           alert.titleText += " - Artifact Added";
         }
         alert.image = FS.File.Image('photos.png');
-        alert.fields = [];
+
         if(alert.context.artifactId) {
           alert.url = artifactManagerURL + alert.context.artifactId;
           alert.href = photosImageURL + alert.context.artifactId;
+        }
+        if(alert.context) {
           alert.fields.push({'label': 'Title:', 'value': alert.context.title});
+          alert.fields.push({'label': 'Name:', 'value': alert.context.name});
         }
       }
       else if(alert.applicationID === 'engage.start.soi') {
@@ -26,8 +31,13 @@ fambookApp.factory('soiService', ['$http', '$q', '$filter', 'FS', function($http
         if(alert.alertType === 'namesReady-possibleDuplicates') {
           alert.titleText = "Temple Alert - Names Ready Possible Duplicates";
           alert.data = alert.context.data.personId;
-          alert.image = 'temple-extra-large.png';
+          alert.image = FS.File.Image('temple-extra-large.png');
         }
+        alert.fields.push({'label': 'Note:', 'value': 'Temple alerts are under construction. Click link to view temple reservations.'});
+        alert.href = templeURL;
+        //if(alert.context && alert.context.data && alert.context.data.personId) {
+          //alert.href = treePersonURL+ alert.context.data.personId;
+        //}
       }
       alert.user = {};
       alert.user.image = FS.File.Image('patrick.jpg');
@@ -35,7 +45,6 @@ fambookApp.factory('soiService', ['$http', '$q', '$filter', 'FS', function($http
       var dateFilter = $filter('date');
       alert.changeTime = new Date(alert.updateTime);
       alert.changeTime = dateFilter(alert.changeTime, 'shortDate');
-      alert.fields = [];
       alert.fields.push({'label': 'Date:', 'value': alert.changeTime});
 
       //console.log("alert: ", alert)
