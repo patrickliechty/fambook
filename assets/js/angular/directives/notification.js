@@ -19,7 +19,7 @@ fambookApp.directive('notification', ['$http', function($http) {
 
           $http.get('https://familysearch.org/artifactmanager/persons/' + scope.alert.context.taggedPersonId)
               .success(function(data, status, headers, config) {
-                console.log("get artifact tree id success data: ", data);
+                //console.log("get artifact tree id success data: ", data);
                 element.find('.artifactImage').attr('src', data.thumbUrl);
                 element.find('.relationshipCalculator a').attr('data-control', "relationshipCalc");
                 var dataConfig = "{ \"personId\": \"" + user.personId +
