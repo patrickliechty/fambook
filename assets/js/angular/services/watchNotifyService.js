@@ -31,7 +31,7 @@ fambookApp.factory('watchNotifyService', ['$http', '$q', '$filter', 'FS', functi
         for(var j=0; j<changes[i].data.changes.length; j++) {
           if(changes[i].data.changes[j]) {
             var change = changes[i].data.changes[j];
-            console.log("notification: " + JSON.stringify(change));
+            //console.log("notification: " + JSON.stringify(change));
             change.titleText = "Family Tree Alert";
             change.titleText += ' - ' + FB.Util.getTreeText(change.type);
             change.fields = [];

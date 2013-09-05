@@ -7,8 +7,7 @@ fambookApp.factory('soiService', ['$http', '$q', '$filter', 'FS', function($http
     for(var i=0; i<alerts.length; i++) {
       var alert = alerts[i];
       alert.context = JSON.parse(alerts[i].context);
-      console.log("soiAlert: " + JSON.stringify(alert));
-      //console.log("applicationID: " + alert.applicationID);
+      //console.log("soiAlert: " + JSON.stringify(alert));
       alert.fields = [];
       if(alert.applicationID === 'engage.artifactmanager') {
         alert.titleText = 'Photos Alert';
