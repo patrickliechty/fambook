@@ -17,6 +17,15 @@ fambookApp.controller('feedController', ['$scope', '$q', 'soiService', 'watchNot
     'relative': FS.File.Image('relative.jpg')
   }
 
+  $http.get(treeUserURL + "?sessionId=" + user.sessionId)
+      .success(function(data, status, headers, config) {
+        console.log("fambookApp user.personId", user)
+        user.personId = data.personId;
+      })
+      .error(function(data, status, headers, config) {
+        console.log("Unable to get user.personId", data, status, headers, config);
+      });
+
   if(demoData) {
     var alerts = soiService.getAlertsStatic('');
     var notifications = watchNotifyService.getNotificationsStatic('');
@@ -58,14 +67,6 @@ fambookApp.controller('feedController', ['$scope', '$q', 'soiService', 'watchNot
     function(event) {
       console.log('Scope.alerts failure', event)
     });
-
-    $http.get(treeUserURL + "?sessionId=" + user.sessionId)
-        .success(function(data, status, headers, config) {
-          user.personId = data.personId;
-        })
-        .error(function(data, status, headers, config) {
-          console.log("Unable to get user.personId", data, status, headers, config);
-        });
 
   }
 }]);
