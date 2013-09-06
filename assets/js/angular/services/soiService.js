@@ -6,8 +6,12 @@ fambookApp.factory('soiService', ['$http', '$q', '$filter', 'FS', function($http
   function processAlerts(alerts) {
     for(var i=0; i<alerts.length; i++) {
       var alert = alerts[i];
-      alert.context = JSON.parse(alerts[i].context);
-      //console.log("soiAlert: " + JSON.stringify(alert));
+      console.log("soiAlert: " + JSON.stringify(alert));
+      if(typeof alert.context === 'string') {
+        alert.context = JSON.parse(alert.context);
+      }
+      console.log("soiAlert: ", alert);
+
       alert.fields = [];
       if(alert.applicationID === 'engage.artifactmanager') {
         alert.titleText = 'Photos Alert';
@@ -32,6 +36,7 @@ fambookApp.factory('soiService', ['$http', '$q', '$filter', 'FS', function($http
           alert.data = alert.context.data.personId;
           alert.image = FS.File.Image('temple-extra-large.png');
         }
+        alert.fields.push({'label': 'Name:', 'value': alert.name});
         alert.fields.push({'label': 'Note:', 'value': 'Temple alerts are under construction. Click link to view temple reservations.'});
         alert.href = templeURL;
         //if(alert.context && alert.context.data && alert.context.data.personId) {
@@ -72,6 +77,25 @@ fambookApp.factory('soiService', ['$http', '$q', '$filter', 'FS', function($http
           "rel": "templates/alertsForUser"
         }],
         "alerts": [{
+          "links":[{
+              "href":"https://familysearch.org/alertservice/alert/10819679",
+              "rel":"relations/alert",
+              "type":null
+            }],
+            "templates":[],
+            "id":10819679,
+            "userID":"cis.user.MMMZ-GJMY",
+            "name":"Hans Liechty",
+            "applicationID":"engage.start.soi",
+            "creationTime":"2013-09-05T18:31:25.000+0000",
+            "updateTime":"2009-09-05T18:31:25.000+0000",
+            "alertType":"namesReady-possibleDuplicates",
+            "status":"NEW",
+            "resourceURI":"https://familysearch.org/scopeservice/soi/action/1813712",
+            "context": {context:0,data:{personId:'MK79-DB7'}},
+            "contextMediaType":"application/json"
+        },
+        {
           "links": [{
             "href": "https://familysearch.org/alertservice/alert/2007841",
             "rel": "relations/alert",
