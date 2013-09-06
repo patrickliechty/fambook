@@ -2,7 +2,8 @@
 
 var fambookApp = angular.module('fambook', []);
 
-fambookApp.controller('feedController', ['$scope', '$q', 'soiService', 'watchNotifyService', '$location', 'FS', '$http', function ($scope, $q, soiService, watchNotifyService, $location, FS, $http) {
+fambookApp.controller('feedController', ['$scope', '$q', 'soiService', 'watchNotifyService', '$location', 'FS', '$http',
+  function ($scope, $q, soiService, watchNotifyService, $location, FS, $http) {
   $scope.alerts = [];
   var promiseArray = [];
   var alertsArray = [];
@@ -69,4 +70,13 @@ fambookApp.controller('feedController', ['$scope', '$q', 'soiService', 'watchNot
     });
 
   }
+}]);
+
+
+fambookApp.factory('$exceptionHandler', ['$log', function ($log) {
+  return function (exception, cause) {
+    $('.alert-error').removeClass('hide');
+    $('.spinner').hide();
+    $log.error(cause + " Exception: " + exception.message, exception.stack);
+  };
 }]);

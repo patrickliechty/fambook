@@ -1,8 +1,9 @@
 {
     "groups": {
-        "devs": ["stephen.lynn"]
+      "devs": ["stephen.lynn"]
     },
     "experiments": {
-        "featureOne": "devs"
+      "bootstrap232": true,
+      "featureOne": "devs"
     }
 }

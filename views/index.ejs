@@ -49,6 +49,9 @@
       </div>
       <div class='feed span6'>
         <div class='spinner'></div>
+        <div class="alert alert-error hide">
+          An error has occurred. Please try again later.
+        </div>
         <ul class='unstyled app-margin'>
           <li ng-repeat="alert in alerts | orderBy:-changeTime">
             <notification/>
